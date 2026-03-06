@@ -69,8 +69,48 @@ const Sound = (function () {
     }
   }
 
+  // Play streak milestone sound (celebratory ascending arpeggio)
+  function playStreak() {
+    try {
+      const ctx = getContext();
+      const now = ctx.currentTime;
+
+      // Three-note ascending arpeggio with harmonics
+      const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+      notes.forEach(function (freq, i) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now + i * 0.1);
+        gain.gain.setValueAtTime(0, now);
+        gain.gain.setValueAtTime(0.3, now + i * 0.1);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.3);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + i * 0.1);
+        osc.stop(now + i * 0.1 + 0.3);
+      });
+
+      // Final high note with shimmer
+      const oscFinal = ctx.createOscillator();
+      const gainFinal = ctx.createGain();
+      oscFinal.type = "sine";
+      oscFinal.frequency.setValueAtTime(1046.5, now + 0.3); // C6
+      gainFinal.gain.setValueAtTime(0, now);
+      gainFinal.gain.setValueAtTime(0.25, now + 0.3);
+      gainFinal.gain.exponentialRampToValueAtTime(0.01, now + 0.8);
+      oscFinal.connect(gainFinal);
+      gainFinal.connect(ctx.destination);
+      oscFinal.start(now + 0.3);
+      oscFinal.stop(now + 0.8);
+    } catch (e) {
+      // Silently fail if audio is not supported
+    }
+  }
+
   return {
     playCorrect,
     playWrong,
+    playStreak,
   };
 })();
