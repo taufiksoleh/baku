@@ -2,6 +2,8 @@
 
 Game kuis interaktif untuk menguji pengetahuanmu tentang **kata baku dan tidak baku** berdasarkan **KBBI (Kamus Besar Bahasa Indonesia)**.
 
+Dibangun dengan **Nuxt 4** dan **Nuxt UI**, dioptimalkan untuk pengalaman mobile.
+
 ## 🎮 Cara Bermain
 
 1. Dua pilihan kata ditampilkan di layar
@@ -29,12 +31,17 @@ Game kuis interaktif untuk menguji pengetahuanmu tentang **kata baku dan tidak b
 
 ## 🚀 Cara Menjalankan
 
-Buka file `index.html` di browser — tidak memerlukan server atau instalasi apapun!
-
+```bash
+git clone https://github.com/taufiksoleh/baku.git
+cd baku
+npm install
+npm run dev
 ```
-git clone https://github.com/taufiksoleh/baku-tidalbaku.git
-cd baku-tidalbaku
-# Buka index.html di browser
+
+### Build untuk Produksi
+
+```bash
+npm run generate
 ```
 
 ### Hosting di GitHub Pages
@@ -44,25 +51,31 @@ Proyek ini otomatis di-deploy ke GitHub Pages melalui GitHub Actions setiap kali
 1. Buka **Settings → Pages** di repositori GitHub Anda
 2. Di bagian **Source**, pilih **GitHub Actions**
 3. Push perubahan ke branch `main` — deploy akan berjalan otomatis
-4. Akses situs Anda di `https://<username>.github.io/baku-tidalbaku/`
 
 ## 📁 Struktur File
 
 ```
-baku-tidalbaku/
-├── index.html          # Halaman utama game
-├── css/
-│   └── style.css       # Tampilan & styling (mobile-first)
-├── js/
-│   ├── words.js        # Data kata baku/tidak baku dari KBBI
-│   ├── game.js         # Logika permainan & sistem poin
-│   └── app.js          # Inisialisasi UI & event handler
+baku/
+├── app/
+│   ├── app.vue              # Layout utama dengan bottom navigation
+│   ├── app.config.ts        # Konfigurasi tema Nuxt UI
+│   ├── assets/css/main.css  # Global styles (Tailwind + Nuxt UI)
+│   ├── components/
+│   │   ├── GameView.vue     # Komponen game utama
+│   │   ├── HowToPlay.vue    # Panduan cara bermain
+│   │   └── WordList.vue     # Daftar kata baku/tidak baku
+│   └── composables/
+│       ├── words.ts         # Data kata dari KBBI
+│       ├── useGame.ts       # Logika permainan & scoring
+│       └── useSound.ts      # Efek suara (Web Audio API)
+├── nuxt.config.ts           # Konfigurasi Nuxt
+├── package.json
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml  # GitHub Pages deployment pipeline
+│       └── deploy.yml       # GitHub Pages deployment
 └── README.md
 ```
 
 ## 📖 Referensi
 
-Semua kata berdasarkan **KBBI (Kamus Besar Bahasa Indonesia)** — [kbbi.kemdikbud.go.id](https://kbbi.kemdikbud.go.id)
+Semua kata berdasarkan **KBBI (Kamus Besar Bahasa Indonesia)** — [kbbi.kemendikdasmen.go.id](https://kbbi.kemendikdasmen.go.id)
