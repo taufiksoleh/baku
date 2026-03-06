@@ -159,11 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (newState.streak === 3 || newState.streak === 5 || (newState.streak >= 10 && newState.streak % 5 === 0)) {
         Confetti.partyStreak();
       }
-
-      // Party animation when finishing all progress (all questions answered in this round)
-      if (newState.currentIndex >= newState.questions.length) {
-        Confetti.partyFinish();
-      }
     } else {
       // Play wrong sound
       Sound.playWrong();
@@ -201,6 +196,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // =====================
   function advanceQuestion() {
     Game.nextQuestion();
+    const state = Game.getState();
+    if (state.roundComplete) {
+      Confetti.partyFinish();
+    }
     renderQuestion();
   }
 
