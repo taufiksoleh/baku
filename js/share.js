@@ -54,9 +54,9 @@ const Share = (function () {
     ctx.fillText("POIN", w / 2, 222);
 
     // Stats row
-    var statsY = 276;
-    var statSpacing = w / 4;
-    var stats = [
+    const statsY = 276;
+    const statSpacing = w / 4;
+    const stats = [
       { label: "Level", value: String(state.level) },
       { label: "Rekor", value: String(state.highScore) },
       { label: "Streak", value: String(state.bestStreak) + "x" },
@@ -64,7 +64,7 @@ const Share = (function () {
     ];
 
     stats.forEach(function (stat, i) {
-      var x = statSpacing * i + statSpacing / 2;
+      const x = statSpacing * i + statSpacing / 2;
 
       // Stat value
       ctx.fillStyle = "#FFFFFF";
@@ -111,10 +111,10 @@ const Share = (function () {
 
   // Share score
   function shareScore() {
-    var canvas = generateScoreCanvas();
+    const canvas = generateScoreCanvas();
 
     canvasToBlob(canvas).then(function (blob) {
-      var file = new File([blob], "kata-baku-score.png", { type: "image/png" });
+      const file = new File([blob], "kata-baku-score.png", { type: "image/png" });
 
       // Try Web Share API with file support
       if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -127,8 +127,8 @@ const Share = (function () {
         });
       } else {
         // Fallback: download the image
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
         a.href = url;
         a.download = "kata-baku-score.png";
         document.body.appendChild(a);
