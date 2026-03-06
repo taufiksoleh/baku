@@ -337,17 +337,17 @@ document.addEventListener("DOMContentLoaded", function () {
   function renderHistory() {
     const allHistory = Game.getHistory();
     const filter = historyFilterSelect.value;
+    const correctTotal = allHistory.filter((h) => h.isCorrect).length;
+    const wrongTotal = allHistory.length - correctTotal;
 
     let filtered = allHistory;
     if (filter === "correct") {
-      filtered = allHistory.filter(function (h) { return h.isCorrect; });
+      filtered = allHistory.filter((h) => h.isCorrect);
     } else if (filter === "wrong") {
-      filtered = allHistory.filter(function (h) { return !h.isCorrect; });
+      filtered = allHistory.filter((h) => !h.isCorrect);
     }
 
     // Update summary counts
-    const correctTotal = allHistory.filter(function (h) { return h.isCorrect; }).length;
-    const wrongTotal = allHistory.length - correctTotal;
     historyCorrectCount.textContent = correctTotal;
     historyWrongCount.textContent = wrongTotal;
     historyTotalCount.textContent = allHistory.length;
@@ -364,20 +364,20 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    filtered.forEach(function (entry) {
-      var item = document.createElement("div");
+    filtered.forEach((entry) => {
+      const item = document.createElement("div");
       item.className = "history-item";
 
-      var iconClass = entry.isCorrect ? "correct" : "wrong";
-      var iconSymbol = entry.isCorrect ? "✓" : "✗";
+      const iconClass = entry.isCorrect ? "correct" : "wrong";
+      const iconSymbol = entry.isCorrect ? "✓" : "✗";
 
       item.innerHTML =
-        '<div class="history-icon ' + iconClass + '">' + iconSymbol + '</div>' +
-        '<div class="history-content">' +
-          '<div class="history-word">' + escapeHtml(entry.baku) + '</div>' +
-          '<div class="history-detail">Tidak baku: ' + escapeHtml(entry.tidakBaku) + '</div>' +
-        '</div>' +
-        '<span class="history-level-tag">Lv.' + entry.level + '</span>';
+        `<div class="history-icon ${iconClass}">${iconSymbol}</div>` +
+        `<div class="history-content">` +
+          `<div class="history-word">${escapeHtml(entry.baku)}</div>` +
+          `<div class="history-detail">Tidak baku: ${escapeHtml(entry.tidakBaku)}</div>` +
+        `</div>` +
+        `<span class="history-level-tag">Lv.${entry.level}</span>`;
 
       historyList.appendChild(item);
     });
@@ -387,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Escape HTML helper
   // =====================
   function escapeHtml(text) {
-    var div = document.createElement("div");
+    const div = document.createElement("div");
     div.appendChild(document.createTextNode(text));
     return div.innerHTML;
   }
