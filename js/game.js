@@ -1,6 +1,8 @@
 // Game logic for Kata Baku vs Tidak Baku game
 
 const Game = (function () {
+  const QUESTIONS_PER_LEVEL = 100;
+
   // State
   let state = {
     score: 0,
@@ -16,7 +18,12 @@ const Game = (function () {
     bestStreak: 0,
     optionLeft: null,
     optionRight: null,
+    level: 1,
+    levelAnswered: 0,
   };
+
+  // Answer history
+  let history = [];
 
   // Load high score from localStorage
   function loadHighScore() {
@@ -36,6 +43,37 @@ const Game = (function () {
       state.bestStreak = state.streak;
       localStorage.setItem("kataBakuBestStreak", state.bestStreak);
     }
+  }
+
+  // Load level data from localStorage
+  function loadLevel() {
+    const savedLevel = localStorage.getItem("kataBakuLevel");
+    if (savedLevel) state.level = parseInt(savedLevel, 10);
+    const savedLevelAnswered = localStorage.getItem("kataBakuLevelAnswered");
+    if (savedLevelAnswered) state.levelAnswered = parseInt(savedLevelAnswered, 10);
+  }
+
+  // Save level data to localStorage
+  function saveLevel() {
+    localStorage.setItem("kataBakuLevel", state.level);
+    localStorage.setItem("kataBakuLevelAnswered", state.levelAnswered);
+  }
+
+  // Load answer history from localStorage
+  function loadHistory() {
+    const saved = localStorage.getItem("kataBakuHistory");
+    if (saved) {
+      try {
+        history = JSON.parse(saved);
+      } catch (e) {
+        history = [];
+      }
+    }
+  }
+
+  // Save answer history to localStorage
+  function saveHistory() {
+    localStorage.setItem("kataBakuHistory", JSON.stringify(history));
   }
 
   // Prepare questions for current kategori
@@ -72,6 +110,27 @@ const Game = (function () {
 
     const isCorrect = isBakuChosen;
     state.totalAnswered++;
+    state.levelAnswered++;
+
+    // Record in history
+    history.push({
+      baku: state.currentQuestion.baku,
+      tidakBaku: state.currentQuestion.tidakBaku,
+      kategori: state.currentQuestion.kategori,
+      isCorrect: isCorrect,
+      level: state.level,
+      timestamp: Date.now(),
+    });
+    saveHistory();
+
+    // Check level up
+    let leveledUp = false;
+    if (state.levelAnswered >= QUESTIONS_PER_LEVEL) {
+      state.level++;
+      state.levelAnswered = 0;
+      leveledUp = true;
+    }
+    saveLevel();
 
     if (isCorrect) {
       state.correctAnswers++;
@@ -92,6 +151,8 @@ const Game = (function () {
       incorrectWord: state.currentQuestion.tidakBaku,
       score: state.score,
       streak: state.streak,
+      leveledUp: leveledUp,
+      level: state.level,
     };
   }
 
@@ -118,9 +179,27 @@ const Game = (function () {
     return Math.round((state.correctAnswers / state.totalAnswered) * 100);
   }
 
+  // Get answer history
+  function getHistory() {
+    return history.slice().reverse();
+  }
+
+  // Clear answer history
+  function clearHistory() {
+    history = [];
+    saveHistory();
+  }
+
+  // Get level progress (0-100)
+  function getLevelProgress() {
+    return Math.round((state.levelAnswered / QUESTIONS_PER_LEVEL) * 100);
+  }
+
   // Init
   function init() {
     loadHighScore();
+    loadLevel();
+    loadHistory();
     prepareQuestions();
     nextQuestion();
   }
@@ -132,6 +211,10 @@ const Game = (function () {
     reset,
     setKategori,
     getAccuracy,
+    getHistory,
+    clearHistory,
+    getLevelProgress,
     getState: () => ({ ...state }),
+    QUESTIONS_PER_LEVEL,
   };
 })();

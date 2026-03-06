@@ -21,6 +21,20 @@
     <!-- ===== Tab: Bermain (Game) ===== -->
     <div id="tab-bermain" class="tab-view tab-active">
 
+      <!-- Level Badge -->
+      <div class="level-badge" id="level-badge">
+        <div class="level-info">
+          <span class="level-label">Level</span>
+          <span class="level-number" id="level-number">1</span>
+        </div>
+        <div class="level-progress-wrap">
+          <div class="level-progress-track">
+            <div class="level-progress-fill" id="level-progress-bar"></div>
+          </div>
+          <span class="level-progress-text" id="level-progress-text">0 / 100</span>
+        </div>
+      </div>
+
       <!-- Stats Bar -->
       <div class="stats-bar">
         <div class="stat-card">
@@ -155,6 +169,44 @@
 
     </div>
 
+    <!-- ===== Tab: Riwayat (Answer History) ===== -->
+    <div id="tab-riwayat" class="tab-view">
+
+      <div class="history-panel">
+        <div class="history-header">
+          <div class="history-meta">
+            <span class="history-count-badge" id="history-count">0 jawaban</span>
+            <div class="history-filter">
+              <select id="history-filter-select">
+                <option value="all">Semua</option>
+                <option value="correct">Benar</option>
+                <option value="wrong">Salah</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-clear-history" id="clear-history-btn">Hapus</button>
+        </div>
+        <div class="history-summary" id="history-summary">
+          <div class="history-summary-item summary-correct">
+            <span class="summary-number" id="history-correct-count">0</span>
+            <span class="summary-label">Benar</span>
+          </div>
+          <div class="history-summary-item summary-wrong">
+            <span class="summary-number" id="history-wrong-count">0</span>
+            <span class="summary-label">Salah</span>
+          </div>
+          <div class="history-summary-item summary-total">
+            <span class="summary-number" id="history-total-count">0</span>
+            <span class="summary-label">Total</span>
+          </div>
+        </div>
+        <div class="history-list" id="history-list">
+          <div class="history-empty" id="history-empty">Belum ada riwayat jawaban.</div>
+        </div>
+      </div>
+
+    </div>
+
     <!-- Footer -->
     <footer>
       <p>Referensi: KBBI (Kamus Besar Bahasa Indonesia) — <a href="https://kbbi.kemendikdasmen.go.id/Beranda" target="_blank" rel="noopener">kbbi.kemendikdasmen.go.id</a></p>
@@ -175,6 +227,10 @@
     <button class="bottom-nav-item" data-tab="tab-daftar-kata">
       <span class="bottom-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
       <span class="bottom-nav-label">Daftar Kata</span>
+    </button>
+    <button class="bottom-nav-item" data-tab="tab-riwayat">
+      <span class="bottom-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <span class="bottom-nav-label">Riwayat</span>
     </button>
   </nav>
 

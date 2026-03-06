@@ -22,6 +22,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const progressBar = document.getElementById("progress-bar");
   const bottomNav = document.getElementById("bottom-nav");
 
+  // Level elements
+  const levelNumber = document.getElementById("level-number");
+  const levelProgressBar = document.getElementById("level-progress-bar");
+  const levelProgressText = document.getElementById("level-progress-text");
+
+  // History elements
+  const historyList = document.getElementById("history-list");
+  const historyEmpty = document.getElementById("history-empty");
+  const historyCount = document.getElementById("history-count");
+  const historyFilterSelect = document.getElementById("history-filter-select");
+  const historyCorrectCount = document.getElementById("history-correct-count");
+  const historyWrongCount = document.getElementById("history-wrong-count");
+  const historyTotalCount = document.getElementById("history-total-count");
+  const clearHistoryBtn = document.getElementById("clear-history-btn");
+
   let awaitingNext = false;
 
   // =====================
@@ -46,6 +61,11 @@ document.addEventListener("DOMContentLoaded", function () {
           view.classList.remove("tab-active");
         }
       });
+
+      // Render history when switching to history tab
+      if (targetTab === "tab-riwayat") {
+        renderHistory();
+      }
     });
   });
 
@@ -65,6 +85,34 @@ document.addEventListener("DOMContentLoaded", function () {
   Game.init();
   renderQuestion();
   renderWordList("Semua");
+  updateLevelDisplay();
+
+  // =====================
+  // Update Level Display
+  // =====================
+  function updateLevelDisplay() {
+    const state = Game.getState();
+    levelNumber.textContent = state.level;
+    const progress = Game.getLevelProgress();
+    levelProgressBar.style.width = progress + "%";
+    levelProgressText.textContent = `${state.levelAnswered} / ${Game.QUESTIONS_PER_LEVEL}`;
+  }
+
+  // =====================
+  // Show Level Up Toast
+  // =====================
+  function showLevelUpToast(level) {
+    const toast = document.createElement("div");
+    toast.className = "level-up-toast";
+    toast.innerHTML = `Level Up! 🎉<span class="level-up-number">Level ${level}</span>`;
+    document.body.appendChild(toast);
+    Confetti.partyFinish();
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transition = "opacity 0.5s ease";
+      setTimeout(() => toast.remove(), 500);
+    }, 2000);
+  }
 
   // =====================
   // Render Question
@@ -106,6 +154,9 @@ document.addEventListener("DOMContentLoaded", function () {
     feedbackEl.classList.add("hidden");
     feedbackEl.className = "feedback hidden";
     nextBtn.classList.add("hidden");
+
+    // Update level display
+    updateLevelDisplay();
   }
 
   // =====================
@@ -182,6 +233,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     feedbackEl.classList.remove("hidden");
     nextBtn.classList.remove("hidden");
+
+    // Update level display after answer
+    updateLevelDisplay();
+
+    // Show level up toast
+    if (result.leveledUp) {
+      showLevelUpToast(result.level);
+    }
 
     // Auto-advance after 2 seconds
     setTimeout(() => {
@@ -271,6 +330,81 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("word-list-count").textContent = `${kata.length} kata`;
   }
+
+  // =====================
+  // Render Answer History
+  // =====================
+  function renderHistory() {
+    const allHistory = Game.getHistory();
+    const filter = historyFilterSelect.value;
+    const correctTotal = allHistory.filter((h) => h.isCorrect).length;
+    const wrongTotal = allHistory.length - correctTotal;
+
+    let filtered = allHistory;
+    if (filter === "correct") {
+      filtered = allHistory.filter((h) => h.isCorrect);
+    } else if (filter === "wrong") {
+      filtered = allHistory.filter((h) => !h.isCorrect);
+    }
+
+    // Update summary counts
+    historyCorrectCount.textContent = correctTotal;
+    historyWrongCount.textContent = wrongTotal;
+    historyTotalCount.textContent = allHistory.length;
+    historyCount.textContent = filtered.length + " jawaban";
+
+    // Clear list
+    historyList.innerHTML = "";
+
+    if (filtered.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "history-empty";
+      empty.textContent = allHistory.length === 0 ? "Belum ada riwayat jawaban." : "Tidak ada jawaban untuk filter ini.";
+      historyList.appendChild(empty);
+      return;
+    }
+
+    filtered.forEach((entry) => {
+      const item = document.createElement("div");
+      item.className = "history-item";
+
+      const iconClass = entry.isCorrect ? "correct" : "wrong";
+      const iconSymbol = entry.isCorrect ? "✓" : "✗";
+
+      item.innerHTML =
+        `<div class="history-icon ${iconClass}">${iconSymbol}</div>` +
+        `<div class="history-content">` +
+          `<div class="history-word">${escapeHtml(entry.baku)}</div>` +
+          `<div class="history-detail">Tidak baku: ${escapeHtml(entry.tidakBaku)}</div>` +
+        `</div>` +
+        `<span class="history-level-tag">Lv.${entry.level}</span>`;
+
+      historyList.appendChild(item);
+    });
+  }
+
+  // =====================
+  // Escape HTML helper
+  // =====================
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.appendChild(document.createTextNode(text));
+    return div.innerHTML;
+  }
+
+  // =====================
+  // History Filter & Clear
+  // =====================
+  historyFilterSelect.addEventListener("change", function () {
+    renderHistory();
+  });
+
+  clearHistoryBtn.addEventListener("click", function () {
+    if (confirm("Hapus semua riwayat jawaban?")) {
+      Game.clearHistory();
+      renderHistory();
+    }
+  });
 
   // =====================
   // (Leaderboard and Multiplayer features hidden)
