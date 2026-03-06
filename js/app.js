@@ -206,9 +206,10 @@ document.addEventListener("DOMContentLoaded", function () {
         streakBadge.textContent = `${newState.streak}x Streak!`;
       }
 
-      // Party animation on streak milestones (3, 5, 10, 15, 20, ...)
+      // Party animation and streak sound on streak milestones (3, 5, 10, 15, 20, ...)
       if (newState.streak === 3 || newState.streak === 5 || (newState.streak >= 10 && newState.streak % 5 === 0)) {
         Confetti.partyStreak();
+        Sound.playStreak();
       }
     } else {
       // Play wrong sound
@@ -404,6 +405,14 @@ document.addEventListener("DOMContentLoaded", function () {
       Game.clearHistory();
       renderHistory();
     }
+  });
+
+  // =====================
+  // Share Button
+  // =====================
+  const shareBtn = document.getElementById("share-btn");
+  shareBtn.addEventListener("click", function () {
+    Share.shareScore();
   });
 
   // =====================

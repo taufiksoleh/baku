@@ -434,6 +434,42 @@ header p {
 }
 
 /* =====================
+   Share Section
+   ===================== */
+.share-section {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.btn-share {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card-bg);
+  color: var(--primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition-fast), background var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-share:active {
+  transform: scale(0.96);
+  background: var(--bg-secondary);
+}
+
+.btn-share .btn-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* =====================
    Game Card — iOS Card Style
    ===================== */
 .game-card {
