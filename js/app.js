@@ -154,6 +154,11 @@ document.addEventListener("DOMContentLoaded", function () {
         streakBadge.classList.remove("hidden");
         streakBadge.textContent = `${newState.streak}x Streak!`;
       }
+
+      // Party animation on streak milestones (3, 5, 10, 15, 20, ...)
+      if (newState.streak === 3 || newState.streak === 5 || (newState.streak >= 10 && newState.streak % 5 === 0)) {
+        Confetti.partyStreak();
+      }
     } else {
       // Play wrong sound
       Sound.playWrong();
@@ -191,6 +196,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // =====================
   function advanceQuestion() {
     Game.nextQuestion();
+    const state = Game.getState();
+    if (state.roundComplete) {
+      Confetti.partyFinish();
+    }
     renderQuestion();
   }
 

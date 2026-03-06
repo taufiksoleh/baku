@@ -48,7 +48,10 @@ const Game = (function () {
   // Get next question
   function nextQuestion() {
     if (state.currentIndex >= state.questions.length) {
+      state.roundComplete = true;
       prepareQuestions(); // Reshuffle when all questions answered
+    } else {
+      state.roundComplete = false;
     }
     state.currentQuestion = state.questions[state.currentIndex];
     state.currentIndex++;
