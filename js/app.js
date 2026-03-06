@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mpGame.classList.add("hidden");
         mpResult.classList.remove("hidden");
 
-        var myName = Multiplayer.getPlayerName();
+        const myName = Multiplayer.getPlayerName();
         document.getElementById("mp-result-my-name").textContent = myName;
         document.getElementById("mp-result-my-score").textContent = event.myScore;
         document.getElementById("mp-result-my-detail").textContent = event.myCorrect + " benar";
@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("mp-result-opp-score").textContent = event.opponentScore;
         document.getElementById("mp-result-opp-detail").textContent = event.opponentCorrect + " benar";
 
-        var resultTitle = document.getElementById("mp-result-title");
+        const resultTitle = document.getElementById("mp-result-title");
         if (event.myScore > event.opponentScore) {
           resultTitle.textContent = "🎉 Kamu Menang!";
           Sound.playCorrect();

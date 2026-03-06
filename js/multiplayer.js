@@ -20,9 +20,9 @@ const Multiplayer = (function () {
   let opponentCorrect = 0;
 
   function generateRoomId() {
-    var chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    var result = "";
-    for (var i = 0; i < 5; i++) {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let result = "";
+    for (let i = 0; i < 5; i++) {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return result;
@@ -135,11 +135,11 @@ const Multiplayer = (function () {
   }
 
   function prepareQuestions() {
-    var allKata = KATA_DATA.slice();
+    const allKata = KATA_DATA.slice();
     // Shuffle
-    for (var i = allKata.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = allKata[i];
+    for (let i = allKata.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = allKata[i];
       allKata[i] = allKata[j];
       allKata[j] = temp;
     }
