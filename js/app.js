@@ -154,6 +154,16 @@ document.addEventListener("DOMContentLoaded", function () {
         streakBadge.classList.remove("hidden");
         streakBadge.textContent = `${newState.streak}x Streak!`;
       }
+
+      // Party animation on streak milestones (3, 5, 10, 15, 20, ...)
+      if (newState.streak === 3 || newState.streak === 5 || (newState.streak >= 10 && newState.streak % 5 === 0)) {
+        Confetti.partyStreak();
+      }
+
+      // Party animation when finishing all progress (all questions answered in this round)
+      if (newState.currentIndex >= newState.questions.length) {
+        Confetti.partyFinish();
+      }
     } else {
       // Play wrong sound
       Sound.playWrong();

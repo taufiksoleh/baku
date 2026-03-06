@@ -65,4 +65,4 @@ baku-tidalbaku/
 
 ## 📖 Referensi
 
-Semua kata berdasarkan **KBBI (Kamus Besar Bahasa Indonesia)** — [kbbi.kemdikbud.go.id](https://kbbi.kemdikbud.go.id)
+Semua kata berdasarkan **KBBI (Kamus Besar Bahasa Indonesia)** — [kbbi.kemendikdasmen.go.id](https://kbbi.kemendikdasmen.go.id/Beranda)
