@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#F9F9F9" />
+  <meta name="description" content="Game kuis interaktif untuk menguji pengetahuan kata baku dan tidak baku berdasarkan KBBI" />
+  <title>Kata Baku vs Tidak Baku – Game KBBI</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>📖 Kata <span>Baku</span> vs Tidak Baku</h1>
+    <p>Uji pengetahuanmu tentang Kamus Besar Bahasa Indonesia (KBBI)</p>
+  </header>
+
+  <div class="container">
+
+    <!-- How to Play -->
+    <div class="how-to-play">
+      <strong>🎮 Cara Bermain:</strong>
+      <ul>
+        <li>Pilih mana yang merupakan <strong>kata baku</strong> dari dua pilihan yang tersedia.</li>
+        <li>Jawaban benar = <strong>+10 poin</strong> (bonus streak 3x = +20, 5x = +30)</li>
+        <li>Jawaban salah = <strong>-5 poin</strong> dan streak hilang</li>
+      </ul>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-card">
+        <span class="stat-label">Poin</span>
+        <span class="stat-value" id="score">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Rekor</span>
+        <span class="stat-value" id="high-score">0</span>
+      </div>
+      <div class="stat-card streak-card">
+        <span class="stat-label">Streak</span>
+        <span class="stat-value" id="streak">0</span>
+      </div>
+      <div class="stat-card accuracy-card">
+        <span class="stat-label">Akurasi</span>
+        <span class="stat-value" id="accuracy">0%</span>
+      </div>
+    </div>
+
+    <!-- Kategori Selector -->
+    <div class="kategori-section">
+      <label for="kategori-select">📂 Kategori:</label>
+      <select id="kategori-select"></select>
+    </div>
+
+    <!-- Game Card -->
+    <div class="game-card">
+
+      <!-- Streak Badge -->
+      <div id="streak-badge" class="streak-badge hidden">🔥 Streak!</div>
+
+      <!-- Progress Bar -->
+      <div class="progress-container">
+        <div class="progress-label">
+          <span id="question-counter">Soal ke-1</span>
+          <span>Progress putaran ini</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-bar"></div>
+        </div>
+      </div>
+
+      <!-- Question -->
+      <div class="question-prompt">
+        <h2>Manakah yang merupakan</h2>
+        <p class="instruction">✅ <span>Kata Baku</span> yang benar?</p>
+      </div>
+
+      <!-- Options -->
+      <div class="options-container">
+        <button class="option-btn" id="option-left">—</button>
+        <button class="option-btn" id="option-right">—</button>
+      </div>
+
+      <!-- Feedback -->
+      <div id="feedback" class="feedback hidden">
+        <div id="feedback-text" class="feedback-text"></div>
+        <div id="feedback-detail" class="feedback-detail"></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn-next hidden" id="next-btn">Soal Berikutnya ➡️</button>
+        <button class="btn-reset" id="reset-btn">🔄 Reset</button>
+      </div>
+
+    </div>
+
+    <!-- Multiplayer Section (hidden) -->
+    <!-- Leaderboard Section (hidden) -->
+
+    <!-- Word List Panel -->
+    <div class="word-list-panel">
+      <div class="word-list-header">
+        <button class="btn-toggle" id="word-list-toggle">📚 Lihat Daftar Kata ▼</button>
+        <div class="word-list-meta">
+          <span class="word-count-badge" id="word-list-count">0 kata</span>
+          <div class="word-list-filter">
+            <select id="word-list-kategori"></select>
+          </div>
+        </div>
+      </div>
+
+      <div id="word-list-content" class="word-list-content hidden">
+        <table class="word-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>✅ Kata Baku</th>
+              <th>❌ Tidak Baku</th>
+              <th>Kategori</th>
+            </tr>
+          </thead>
+          <tbody id="word-list-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Referensi: KBBI (Kamus Besar Bahasa Indonesia) — <a href="https://kbbi.kemdikbud.go.id" target="_blank" rel="noopener">kbbi.kemdikbud.go.id</a></p>
+    </footer>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/words.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
