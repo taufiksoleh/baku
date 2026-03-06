@@ -1,0 +1,76 @@
+// Sound effects for Kata Baku vs Tidak Baku game
+// Uses Web Audio API to synthesize sounds (no audio files needed)
+
+const Sound = (function () {
+  let audioCtx = null;
+
+  function getContext() {
+    if (!audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioCtx;
+  }
+
+  // Play correct answer sound (pleasant ascending chime)
+  function playCorrect() {
+    try {
+      const ctx = getContext();
+      const now = ctx.currentTime;
+
+      // First tone
+      const osc1 = ctx.createOscillator();
+      const gain1 = ctx.createGain();
+      osc1.type = "sine";
+      osc1.frequency.setValueAtTime(523.25, now); // C5
+      osc1.frequency.setValueAtTime(659.25, now + 0.1); // E5
+      gain1.gain.setValueAtTime(0.3, now);
+      gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+      osc1.connect(gain1);
+      gain1.connect(ctx.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.3);
+
+      // Second tone (higher)
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = "sine";
+      osc2.frequency.setValueAtTime(783.99, now + 0.15); // G5
+      gain2.gain.setValueAtTime(0, now);
+      gain2.gain.setValueAtTime(0.3, now + 0.15);
+      gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.start(now + 0.15);
+      osc2.stop(now + 0.45);
+    } catch (e) {
+      // Silently fail if audio is not supported
+    }
+  }
+
+  // Play wrong answer sound (descending buzzer)
+  function playWrong() {
+    try {
+      const ctx = getContext();
+      const now = ctx.currentTime;
+
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = "square";
+      osc.frequency.setValueAtTime(300, now);
+      osc.frequency.linearRampToValueAtTime(200, now + 0.3);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.4);
+    } catch (e) {
+      // Silently fail if audio is not supported
+    }
+  }
+
+  return {
+    playCorrect,
+    playWrong,
+  };
+})();
