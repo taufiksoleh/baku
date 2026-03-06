@@ -823,13 +823,30 @@ footer a:hover {
 }
 
 .bottom-nav-icon {
-  font-size: 1.3rem;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 2px;
+}
+
+.bottom-nav-icon svg {
+  width: 22px;
+  height: 22px;
 }
 
 .bottom-nav-label {
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.1px;
+}
+
+/* =====================
+   Inline SVG Button Icons
+   ===================== */
+.btn-icon {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }

@@ -12,7 +12,7 @@
 
   <!-- Header -->
   <header>
-    <h1>📖 Kata <span>Baku</span> vs Tidak Baku</h1>
+    <h1>Kata <span>Baku</span> vs Tidak Baku</h1>
     <p>Uji pengetahuanmu tentang Kamus Besar Bahasa Indonesia (KBBI)</p>
   </header>
 
@@ -43,7 +43,7 @@
 
       <!-- Kategori Selector -->
       <div class="kategori-section">
-        <label for="kategori-select">📂 Kategori:</label>
+        <label for="kategori-select">Kategori:</label>
         <select id="kategori-select"></select>
       </div>
 
@@ -51,7 +51,7 @@
       <div class="game-card">
 
         <!-- Streak Badge -->
-        <div id="streak-badge" class="streak-badge hidden">🔥 Streak!</div>
+        <div id="streak-badge" class="streak-badge hidden">Streak!</div>
 
         <!-- Progress Bar -->
         <div class="progress-container">
@@ -67,7 +67,7 @@
         <!-- Question -->
         <div class="question-prompt">
           <h2>Manakah yang merupakan</h2>
-          <p class="instruction">✅ <span>Kata Baku</span> yang benar?</p>
+          <p class="instruction"><span>Kata Baku</span> yang benar?</p>
         </div>
 
         <!-- Options -->
@@ -84,8 +84,8 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-          <button class="btn-next hidden" id="next-btn">Soal Berikutnya ➡️</button>
-          <button class="btn-reset" id="reset-btn">🔄 Reset</button>
+          <button class="btn-next hidden" id="next-btn">Soal Berikutnya <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          <button class="btn-reset" id="reset-btn"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg> Reset</button>
         </div>
 
       </div>
@@ -96,7 +96,7 @@
     <div id="tab-cara-main" class="tab-view">
 
       <div class="how-to-play">
-        <strong>🎮 Cara Bermain:</strong>
+        <strong>Cara Bermain</strong>
         <ul>
           <li>Pilih mana yang merupakan <strong>kata baku</strong> dari dua pilihan yang tersedia.</li>
           <li>Jawaban benar = <strong>+10 poin</strong> (bonus streak 3x = +20, 5x = +30)</li>
@@ -105,7 +105,7 @@
       </div>
 
       <div class="how-to-play">
-        <strong>📊 Sistem Poin:</strong>
+        <strong>Sistem Poin</strong>
         <ul>
           <li>Jawaban benar: <strong>+10 poin</strong></li>
           <li>Streak 3x berturut-turut: <strong>+20 poin</strong></li>
@@ -115,7 +115,7 @@
       </div>
 
       <div class="how-to-play">
-        <strong>💡 Tips:</strong>
+        <strong>Tips</strong>
         <ul>
           <li>Gunakan halaman <strong>Daftar Kata</strong> untuk belajar kata baku.</li>
           <li>Pertahankan streak untuk mendapatkan bonus poin!</li>
@@ -143,8 +143,8 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>✅ Kata Baku</th>
-                <th>❌ Tidak Baku</th>
+                <th>Kata Baku</th>
+                <th>Tidak Baku</th>
                 <th>Kategori</th>
               </tr>
             </thead>
@@ -165,15 +165,15 @@
   <!-- Bottom Navigation -->
   <nav class="bottom-nav" id="bottom-nav">
     <button class="bottom-nav-item active" data-tab="tab-bermain">
-      <span class="bottom-nav-icon">🎮</span>
+      <span class="bottom-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
       <span class="bottom-nav-label">Bermain</span>
     </button>
     <button class="bottom-nav-item" data-tab="tab-cara-main">
-      <span class="bottom-nav-icon">📖</span>
+      <span class="bottom-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span>
       <span class="bottom-nav-label">Cara Main</span>
     </button>
     <button class="bottom-nav-item" data-tab="tab-daftar-kata">
-      <span class="bottom-nav-icon">📚</span>
+      <span class="bottom-nav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
       <span class="bottom-nav-label">Daftar Kata</span>
     </button>
   </nav>

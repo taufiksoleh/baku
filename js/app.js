@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Update streak badge
     if (state.streak >= 3) {
       streakBadge.classList.remove("hidden");
-      streakBadge.textContent = `🔥 ${state.streak}x Streak!`;
+      streakBadge.textContent = `${state.streak}x Streak!`;
     } else {
       streakBadge.classList.add("hidden");
     }
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Correct answer
       chosenBtn.classList.add("correct");
       feedbackEl.className = "feedback correct";
-      feedbackText.textContent = "✅ Benar!";
+      feedbackText.textContent = "Benar!";
 
       const newState = Game.getState();
       if (newState.streak >= 3) {
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Show streak badge for 3+
       if (newState.streak >= 3) {
         streakBadge.classList.remove("hidden");
-        streakBadge.textContent = `🔥 ${newState.streak}x Streak!`;
+        streakBadge.textContent = `${newState.streak}x Streak!`;
       }
     } else {
       // Play wrong sound
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
       correctBtn.classList.add("correct");
 
       feedbackEl.className = "feedback wrong";
-      feedbackText.textContent = "❌ Salah!";
+      feedbackText.textContent = "Salah!";
       feedbackDetail.textContent = `Kata baku yang benar adalah "${result.correctWord}" (bukan "${result.incorrectWord}"). -5 poin`;
 
       streakBadge.classList.add("hidden");
