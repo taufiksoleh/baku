@@ -18,13 +18,36 @@ document.addEventListener("DOMContentLoaded", function () {
   const resetBtn = document.getElementById("reset-btn");
   const kategoriSelect = document.getElementById("kategori-select");
   const streakBadge = document.getElementById("streak-badge");
-  const wordListContainer = document.getElementById("word-list-container");
-  const wordListToggle = document.getElementById("word-list-toggle");
-  const wordListContent = document.getElementById("word-list-content");
   const wordListKategori = document.getElementById("word-list-kategori");
   const progressBar = document.getElementById("progress-bar");
+  const bottomNav = document.getElementById("bottom-nav");
 
   let awaitingNext = false;
+
+  // =====================
+  // Bottom Navigation — Tab Switching
+  // =====================
+  const navItems = bottomNav.querySelectorAll(".bottom-nav-item");
+  const tabViews = document.querySelectorAll(".tab-view");
+
+  navItems.forEach(function (item) {
+    item.addEventListener("click", function () {
+      const targetTab = item.getAttribute("data-tab");
+
+      // Update active nav item
+      navItems.forEach(function (nav) { nav.classList.remove("active"); });
+      item.classList.add("active");
+
+      // Show target tab, hide others
+      tabViews.forEach(function (view) {
+        if (view.id === targetTab) {
+          view.classList.add("tab-active");
+        } else {
+          view.classList.remove("tab-active");
+        }
+      });
+    });
+  });
 
   // =====================
   // Populate Kategori Select
@@ -202,19 +225,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // =====================
-  // Word List Toggle
+  // Word List Kategori Filter
   // =====================
-  wordListToggle.addEventListener("click", () => {
-    const isHidden = wordListContent.classList.contains("hidden");
-    if (isHidden) {
-      wordListContent.classList.remove("hidden");
-      wordListToggle.textContent = "📚 Sembunyikan Daftar Kata ▲";
-    } else {
-      wordListContent.classList.add("hidden");
-      wordListToggle.textContent = "📚 Lihat Daftar Kata ▼";
-    }
-  });
-
   wordListKategori.addEventListener("change", (e) => {
     renderWordList(e.target.value);
   });

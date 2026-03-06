@@ -18,113 +18,141 @@
 
   <div class="container">
 
-    <!-- How to Play -->
-    <div class="how-to-play">
-      <strong>🎮 Cara Bermain:</strong>
-      <ul>
-        <li>Pilih mana yang merupakan <strong>kata baku</strong> dari dua pilihan yang tersedia.</li>
-        <li>Jawaban benar = <strong>+10 poin</strong> (bonus streak 3x = +20, 5x = +30)</li>
-        <li>Jawaban salah = <strong>-5 poin</strong> dan streak hilang</li>
-      </ul>
-    </div>
+    <!-- ===== Tab: Bermain (Game) ===== -->
+    <div id="tab-bermain" class="tab-view tab-active">
 
-    <!-- Stats Bar -->
-    <div class="stats-bar">
-      <div class="stat-card">
-        <span class="stat-label">Poin</span>
-        <span class="stat-value" id="score">0</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">Rekor</span>
-        <span class="stat-value" id="high-score">0</span>
-      </div>
-      <div class="stat-card streak-card">
-        <span class="stat-label">Streak</span>
-        <span class="stat-value" id="streak">0</span>
-      </div>
-      <div class="stat-card accuracy-card">
-        <span class="stat-label">Akurasi</span>
-        <span class="stat-value" id="accuracy">0%</span>
-      </div>
-    </div>
-
-    <!-- Kategori Selector -->
-    <div class="kategori-section">
-      <label for="kategori-select">📂 Kategori:</label>
-      <select id="kategori-select"></select>
-    </div>
-
-    <!-- Game Card -->
-    <div class="game-card">
-
-      <!-- Streak Badge -->
-      <div id="streak-badge" class="streak-badge hidden">🔥 Streak!</div>
-
-      <!-- Progress Bar -->
-      <div class="progress-container">
-        <div class="progress-label">
-          <span id="question-counter">Soal ke-1</span>
-          <span>Progress putaran ini</span>
+      <!-- Stats Bar -->
+      <div class="stats-bar">
+        <div class="stat-card">
+          <span class="stat-label">Poin</span>
+          <span class="stat-value" id="score">0</span>
         </div>
-        <div class="progress-track">
-          <div class="progress-fill" id="progress-bar"></div>
+        <div class="stat-card">
+          <span class="stat-label">Rekor</span>
+          <span class="stat-value" id="high-score">0</span>
+        </div>
+        <div class="stat-card streak-card">
+          <span class="stat-label">Streak</span>
+          <span class="stat-value" id="streak">0</span>
+        </div>
+        <div class="stat-card accuracy-card">
+          <span class="stat-label">Akurasi</span>
+          <span class="stat-value" id="accuracy">0%</span>
         </div>
       </div>
 
-      <!-- Question -->
-      <div class="question-prompt">
-        <h2>Manakah yang merupakan</h2>
-        <p class="instruction">✅ <span>Kata Baku</span> yang benar?</p>
+      <!-- Kategori Selector -->
+      <div class="kategori-section">
+        <label for="kategori-select">📂 Kategori:</label>
+        <select id="kategori-select"></select>
       </div>
 
-      <!-- Options -->
-      <div class="options-container">
-        <button class="option-btn" id="option-left">—</button>
-        <button class="option-btn" id="option-right">—</button>
-      </div>
+      <!-- Game Card -->
+      <div class="game-card">
 
-      <!-- Feedback -->
-      <div id="feedback" class="feedback hidden">
-        <div id="feedback-text" class="feedback-text"></div>
-        <div id="feedback-detail" class="feedback-detail"></div>
-      </div>
+        <!-- Streak Badge -->
+        <div id="streak-badge" class="streak-badge hidden">🔥 Streak!</div>
 
-      <!-- Action Buttons -->
-      <div class="action-buttons">
-        <button class="btn-next hidden" id="next-btn">Soal Berikutnya ➡️</button>
-        <button class="btn-reset" id="reset-btn">🔄 Reset</button>
-      </div>
-
-    </div>
-
-    <!-- Multiplayer Section (hidden) -->
-    <!-- Leaderboard Section (hidden) -->
-
-    <!-- Word List Panel -->
-    <div class="word-list-panel">
-      <div class="word-list-header">
-        <button class="btn-toggle" id="word-list-toggle">📚 Lihat Daftar Kata ▼</button>
-        <div class="word-list-meta">
-          <span class="word-count-badge" id="word-list-count">0 kata</span>
-          <div class="word-list-filter">
-            <select id="word-list-kategori"></select>
+        <!-- Progress Bar -->
+        <div class="progress-container">
+          <div class="progress-label">
+            <span id="question-counter">Soal ke-1</span>
+            <span>Progress putaran ini</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-bar"></div>
           </div>
         </div>
+
+        <!-- Question -->
+        <div class="question-prompt">
+          <h2>Manakah yang merupakan</h2>
+          <p class="instruction">✅ <span>Kata Baku</span> yang benar?</p>
+        </div>
+
+        <!-- Options -->
+        <div class="options-container">
+          <button class="option-btn" id="option-left">—</button>
+          <button class="option-btn" id="option-right">—</button>
+        </div>
+
+        <!-- Feedback -->
+        <div id="feedback" class="feedback hidden">
+          <div id="feedback-text" class="feedback-text"></div>
+          <div id="feedback-detail" class="feedback-detail"></div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="btn-next hidden" id="next-btn">Soal Berikutnya ➡️</button>
+          <button class="btn-reset" id="reset-btn">🔄 Reset</button>
+        </div>
+
       </div>
 
-      <div id="word-list-content" class="word-list-content hidden">
-        <table class="word-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>✅ Kata Baku</th>
-              <th>❌ Tidak Baku</th>
-              <th>Kategori</th>
-            </tr>
-          </thead>
-          <tbody id="word-list-body"></tbody>
-        </table>
+    </div>
+
+    <!-- ===== Tab: Cara Main (How to Play) ===== -->
+    <div id="tab-cara-main" class="tab-view">
+
+      <div class="how-to-play">
+        <strong>🎮 Cara Bermain:</strong>
+        <ul>
+          <li>Pilih mana yang merupakan <strong>kata baku</strong> dari dua pilihan yang tersedia.</li>
+          <li>Jawaban benar = <strong>+10 poin</strong> (bonus streak 3x = +20, 5x = +30)</li>
+          <li>Jawaban salah = <strong>-5 poin</strong> dan streak hilang</li>
+        </ul>
       </div>
+
+      <div class="how-to-play">
+        <strong>📊 Sistem Poin:</strong>
+        <ul>
+          <li>Jawaban benar: <strong>+10 poin</strong></li>
+          <li>Streak 3x berturut-turut: <strong>+20 poin</strong></li>
+          <li>Streak 5x berturut-turut: <strong>+30 poin</strong></li>
+          <li>Jawaban salah: <strong>-5 poin</strong> (minimal 0)</li>
+        </ul>
+      </div>
+
+      <div class="how-to-play">
+        <strong>💡 Tips:</strong>
+        <ul>
+          <li>Gunakan halaman <strong>Daftar Kata</strong> untuk belajar kata baku.</li>
+          <li>Pertahankan streak untuk mendapatkan bonus poin!</li>
+          <li>Pilih kategori untuk fokus pada topik tertentu.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- ===== Tab: Daftar Kata (Word List) ===== -->
+    <div id="tab-daftar-kata" class="tab-view">
+
+      <div class="word-list-panel">
+        <div class="word-list-header">
+          <div class="word-list-meta">
+            <span class="word-count-badge" id="word-list-count">0 kata</span>
+            <div class="word-list-filter">
+              <select id="word-list-kategori"></select>
+            </div>
+          </div>
+        </div>
+
+        <div id="word-list-content" class="word-list-content">
+          <table class="word-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>✅ Kata Baku</th>
+                <th>❌ Tidak Baku</th>
+                <th>Kategori</th>
+              </tr>
+            </thead>
+            <tbody id="word-list-body"></tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
     <!-- Footer -->
@@ -133,6 +161,22 @@
     </footer>
 
   </div>
+
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="bottom-nav-item active" data-tab="tab-bermain">
+      <span class="bottom-nav-icon">🎮</span>
+      <span class="bottom-nav-label">Bermain</span>
+    </button>
+    <button class="bottom-nav-item" data-tab="tab-cara-main">
+      <span class="bottom-nav-icon">📖</span>
+      <span class="bottom-nav-label">Cara Main</span>
+    </button>
+    <button class="bottom-nav-item" data-tab="tab-daftar-kata">
+      <span class="bottom-nav-icon">📚</span>
+      <span class="bottom-nav-label">Daftar Kata</span>
+    </button>
+  </nav>
 
   <!-- Scripts -->
   <script src="js/words.js"></script>
