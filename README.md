@@ -37,17 +37,29 @@ cd baku-tidalbaku
 # Buka index.html di browser
 ```
 
+### Hosting di GitHub Pages
+
+Proyek ini otomatis di-deploy ke GitHub Pages melalui GitHub Actions setiap kali ada push ke branch `main`.
+
+1. Buka **Settings → Pages** di repositori GitHub Anda
+2. Di bagian **Source**, pilih **GitHub Actions**
+3. Push perubahan ke branch `main` — deploy akan berjalan otomatis
+4. Akses situs Anda di `https://<username>.github.io/baku-tidalbaku/`
+
 ## 📁 Struktur File
 
 ```
 baku-tidalbaku/
 ├── index.html          # Halaman utama game
 ├── css/
-│   └── style.css       # Tampilan & styling
+│   └── style.css       # Tampilan & styling (mobile-first)
 ├── js/
 │   ├── words.js        # Data kata baku/tidak baku dari KBBI
 │   ├── game.js         # Logika permainan & sistem poin
 │   └── app.js          # Inisialisasi UI & event handler
+├── .github/
+│   └── workflows/
+│       └── deploy.yml  # GitHub Pages deployment pipeline
 └── README.md
 ```
 
