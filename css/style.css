@@ -1,6 +1,6 @@
 /* =============================================
    Kata Baku vs Tidak Baku Game - Styles
-   Mobile-first responsive design
+   iOS-native mobile-first design
    ============================================= */
 
 * {
@@ -14,93 +14,104 @@ html {
 }
 
 :root {
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
-  --success: #16a34a;
-  --success-light: #dcfce7;
-  --danger: #dc2626;
-  --danger-light: #fee2e2;
-  --warning: #d97706;
-  --bg: #f0f9ff;
+  --primary: #007AFF;
+  --primary-dark: #0056CC;
+  --success: #34C759;
+  --success-light: #d4f5dc;
+  --danger: #FF3B30;
+  --danger-light: #ffe0de;
+  --warning: #FF9500;
+  --bg: #F2F2F7;
   --card-bg: #ffffff;
-  --text: #1e293b;
-  --text-secondary: #64748b;
-  --border: #e2e8f0;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
+  --text: #1C1C1E;
+  --text-secondary: #8E8E93;
+  --border: #C6C6C8;
+  --separator: #C6C6C8;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 2px 10px rgba(0, 0, 0, 0.08);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: -apple-system, system-ui, 'Helvetica Neue', sans-serif;
   background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  padding: 0 0 40px 0;
+  padding: 0 0 calc(40px + var(--safe-bottom)) 0;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* =====================
-   Header
+   Header — iOS Navigation Bar Style
    ===================== */
 header {
-  background: linear-gradient(135deg, #1d4ed8, #2563eb, #3b82f6);
-  color: white;
-  padding: 16px 12px;
+  background: rgba(249, 249, 249, 0.94);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  color: var(--text);
+  padding: calc(12px + var(--safe-top)) 16px 12px;
   text-align: center;
-  box-shadow: var(--shadow-lg);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.12);
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
 header h1 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--text);
 }
 
 header h1 span {
-  color: #fde68a;
+  color: var(--primary);
 }
 
 header p {
-  margin-top: 4px;
-  font-size: 0.8rem;
-  opacity: 0.85;
+  margin-top: 2px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
 }
 
 /* =====================
    Main Container
    ===================== */
 .container {
-  max-width: 700px;
+  max-width: 500px;
   margin: 0 auto;
-  padding: 16px 12px;
+  padding: 12px 16px;
+  padding-left: calc(16px + var(--safe-left));
+  padding-right: calc(16px + var(--safe-right));
 }
 
 /* =====================
-   Stats Bar
+   Stats Bar — iOS Grouped Style
    ===================== */
 .stats-bar {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .stat-card {
   background: var(--card-bg);
   border-radius: var(--radius-sm);
-  padding: 10px 8px;
+  padding: 12px 10px;
   text-align: center;
   box-shadow: var(--shadow);
-  border: 1px solid var(--border);
+  border: none;
   transition: transform var(--transition-fast);
 }
 
@@ -111,22 +122,23 @@ header p {
 .stat-label {
   font-size: 0.65rem;
   color: var(--text-secondary);
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .stat-value {
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: 1.3rem;
+  font-weight: 700;
   color: var(--primary);
   display: block;
   margin-top: 2px;
   transition: color var(--transition-fast);
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-card.streak-card .stat-value {
-  color: #f59e0b;
+  color: var(--warning);
 }
 
 .stat-card.accuracy-card .stat-value {
@@ -134,15 +146,15 @@ header p {
 }
 
 /* =====================
-   Game Card
+   Game Card — iOS Card Style
    ===================== */
 .game-card {
   background: var(--card-bg);
   border-radius: var(--radius);
   padding: 20px 16px;
-  box-shadow: var(--shadow-lg);
-  margin-bottom: 16px;
-  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+  border: none;
   transition: box-shadow var(--transition-normal);
 }
 
@@ -151,13 +163,13 @@ header p {
    ===================== */
 .streak-badge {
   text-align: center;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+  background: linear-gradient(135deg, var(--warning), #E08600);
   color: white;
-  font-weight: 700;
-  font-size: 0.85rem;
+  font-weight: 600;
+  font-size: 0.82rem;
   padding: 6px 16px;
   border-radius: 999px;
-  margin: 0 auto 16px;
+  margin: 0 auto 14px;
   display: inline-block;
   width: 100%;
   animation: pulse 1s infinite;
@@ -176,26 +188,26 @@ header p {
    Progress Bar
    ===================== */
 .progress-container {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .progress-label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--text-secondary);
   margin-bottom: 6px;
 }
 
 .progress-track {
-  background: var(--border);
+  background: #E5E5EA;
   border-radius: 999px;
-  height: 6px;
+  height: 4px;
   overflow: hidden;
 }
 
 .progress-fill {
-  background: linear-gradient(90deg, var(--primary), #3b82f6);
+  background: var(--primary);
   height: 100%;
   border-radius: 999px;
   width: 0%;
@@ -207,19 +219,19 @@ header p {
    ===================== */
 .question-prompt {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .question-prompt h2 {
-  font-size: 1rem;
+  font-size: 0.92rem;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 400;
   margin-bottom: 4px;
 }
 
 .question-prompt .instruction {
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.05rem;
+  font-weight: 600;
   color: var(--text);
 }
 
@@ -228,36 +240,36 @@ header p {
 }
 
 /* =====================
-   Options
+   Options — iOS Button Style
    ===================== */
 .options-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .vs-divider {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
 .option-btn {
-  padding: 18px 12px;
-  font-size: 1.05rem;
-  font-weight: 700;
-  border: 2px solid var(--border);
+  padding: 16px 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
   border-radius: var(--radius);
-  background: white;
+  background: var(--primary);
+  color: white;
   cursor: pointer;
-  transition: all var(--transition-normal);
-  color: var(--text);
-  letter-spacing: 0.3px;
-  min-height: 72px;
+  transition: all var(--transition-fast);
+  letter-spacing: 0.2px;
+  min-height: 64px;
   word-break: break-word;
   -webkit-user-select: none;
   user-select: none;
@@ -265,32 +277,29 @@ header p {
 }
 
 .option-btn:hover:not(:disabled) {
-  border-color: var(--primary);
-  background: #eff6ff;
-  box-shadow: var(--shadow);
+  opacity: 0.85;
 }
 
 .option-btn:active:not(:disabled) {
-  transform: scale(0.97);
+  transform: scale(0.96);
+  opacity: 0.75;
 }
 
 .option-btn.correct {
-  background: var(--success-light);
-  border-color: var(--success);
-  color: var(--success);
+  background: var(--success);
+  color: white;
   animation: correctPop 0.3s ease;
 }
 
 .option-btn.wrong {
-  background: var(--danger-light);
-  border-color: var(--danger);
-  color: var(--danger);
+  background: var(--danger);
+  color: white;
   animation: wrongShake 0.4s ease;
 }
 
 .option-btn:disabled {
   cursor: not-allowed;
-  opacity: 0.85;
+  opacity: 0.7;
 }
 
 @keyframes correctPop {
@@ -308,13 +317,13 @@ header p {
 }
 
 /* =====================
-   Feedback
+   Feedback — iOS Alert Style
    ===================== */
 .feedback {
   padding: 12px 14px;
   border-radius: var(--radius-sm);
   margin-bottom: 12px;
-  border-left: 4px solid transparent;
+  border-left: none;
   animation: feedbackSlideIn 0.25s ease;
 }
 
@@ -324,12 +333,10 @@ header p {
 
 .feedback.correct {
   background: var(--success-light);
-  border-left-color: var(--success);
 }
 
 .feedback.wrong {
   background: var(--danger-light);
-  border-left-color: var(--danger);
 }
 
 @keyframes feedbackSlideIn {
@@ -344,8 +351,8 @@ header p {
 }
 
 .feedback-text {
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.92rem;
+  font-weight: 600;
   margin-bottom: 4px;
 }
 
@@ -363,7 +370,7 @@ header p {
 }
 
 /* =====================
-   Buttons
+   Buttons — iOS Style
    ===================== */
 .action-buttons {
   display: flex;
@@ -377,19 +384,20 @@ header p {
   color: white;
   border: none;
   border-radius: var(--radius-sm);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.92rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background var(--transition-fast), transform var(--transition-fast);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
   touch-action: manipulation;
 }
 
 .btn-next:hover {
-  background: var(--primary-dark);
+  opacity: 0.85;
 }
 
 .btn-next:active {
   transform: scale(0.97);
+  opacity: 0.75;
 }
 
 .btn-next.hidden {
@@ -398,11 +406,11 @@ header p {
 
 .btn-reset {
   padding: 14px 16px;
-  background: white;
+  background: var(--bg);
   color: var(--danger);
-  border: 2px solid var(--danger);
+  border: none;
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -410,7 +418,7 @@ header p {
 }
 
 .btn-reset:hover {
-  background: var(--danger-light);
+  opacity: 0.7;
 }
 
 .btn-reset:active {
@@ -418,15 +426,15 @@ header p {
 }
 
 /* =====================
-   Kategori Selector
+   Kategori Selector — iOS Grouped Style
    ===================== */
 .kategori-section {
   background: var(--card-bg);
   border-radius: var(--radius-sm);
   padding: 12px 14px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   box-shadow: var(--shadow);
-  border: 1px solid var(--border);
+  border: none;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -435,7 +443,7 @@ header p {
 
 .kategori-section label {
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
   white-space: nowrap;
 }
@@ -444,16 +452,16 @@ header p {
   flex: 1;
   padding: 10px 12px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  font-size: 0.9rem;
+  border: 1px solid #D1D1D6;
+  font-size: 0.88rem;
   color: var(--text);
-  background: white;
+  background: var(--bg);
   cursor: pointer;
   outline: none;
   min-width: 0;
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238E8E93' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 30px;
@@ -462,17 +470,17 @@ header p {
 
 .kategori-section select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
 }
 
 /* =====================
-   Word List Panel
+   Word List Panel — iOS Table View Style
    ===================== */
 .word-list-panel {
   background: var(--card-bg);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  border: 1px solid var(--border);
+  border: none;
   overflow: hidden;
 }
 
@@ -483,25 +491,25 @@ header p {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
-  background: #f8fafc;
-  border-bottom: 1px solid var(--border);
+  background: var(--card-bg);
+  border-bottom: 0.5px solid #D1D1D6;
 }
 
 .btn-toggle {
   background: none;
   border: none;
   font-size: 0.85rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--primary);
   cursor: pointer;
   padding: 6px 10px;
   border-radius: var(--radius-sm);
-  transition: background var(--transition-fast);
+  transition: opacity var(--transition-fast);
   touch-action: manipulation;
 }
 
 .btn-toggle:hover {
-  background: #eff6ff;
+  opacity: 0.7;
 }
 
 .btn-toggle:active {
@@ -526,11 +534,11 @@ header p {
 
 .word-list-filter select {
   padding: 8px 10px;
-  border: 1px solid var(--border);
+  border: 1px solid #D1D1D6;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
   color: var(--text);
-  background: white;
+  background: var(--bg);
   cursor: pointer;
   outline: none;
   transition: border-color var(--transition-fast);
@@ -538,7 +546,7 @@ header p {
 
 .word-list-filter select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
 }
 
 .word-list-content {
@@ -557,28 +565,28 @@ header p {
 }
 
 .word-table thead {
-  background: #f1f5f9;
+  background: var(--bg);
 }
 
 .word-table th {
   padding: 8px 10px;
   text-align: left;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-secondary);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid var(--border);
+  letter-spacing: 0.3px;
+  border-bottom: 0.5px solid #D1D1D6;
   white-space: nowrap;
 }
 
 .word-table td {
   padding: 8px 10px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0.5px solid #E5E5EA;
 }
 
 .word-table tbody tr:hover {
-  background: #f8fafc;
+  background: var(--bg);
 }
 
 .word-table tbody tr:last-child td {
@@ -597,32 +605,34 @@ header p {
 }
 
 .kategori-tag {
-  background: #eff6ff;
+  background: rgba(0, 122, 255, 0.1);
   color: var(--primary);
   font-size: 0.68rem;
-  font-weight: 600;
+  font-weight: 500;
   padding: 2px 7px;
   border-radius: 999px;
   white-space: nowrap;
 }
 
 /* =====================
-   How to Play
+   How to Play — iOS Info Card Style
    ===================== */
 .how-to-play {
-  background: #fefce8;
-  border: 1px solid #fde68a;
+  background: var(--card-bg);
+  border: none;
   border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  margin-bottom: 16px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
   font-size: 0.78rem;
-  color: #78350f;
+  color: var(--text-secondary);
+  box-shadow: var(--shadow);
 }
 
 .how-to-play strong {
   display: block;
   margin-bottom: 4px;
   font-size: 0.82rem;
+  color: var(--text);
 }
 
 .how-to-play ul {
@@ -636,21 +646,20 @@ header p {
    ===================== */
 footer {
   text-align: center;
-  margin-top: 24px;
-  padding: 0 12px;
-  font-size: 0.75rem;
+  margin-top: 20px;
+  padding: 0 16px calc(8px + var(--safe-bottom));
+  font-size: 0.72rem;
   color: var(--text-secondary);
 }
 
 footer a {
   color: var(--primary);
   text-decoration: none;
-  transition: color var(--transition-fast);
+  transition: opacity var(--transition-fast);
 }
 
 footer a:hover {
-  color: var(--primary-dark);
-  text-decoration: underline;
+  opacity: 0.7;
 }
 
 /* =====================
@@ -658,30 +667,30 @@ footer a:hover {
    ===================== */
 @media (min-width: 481px) {
   header {
-    padding: 20px;
+    padding: calc(16px + var(--safe-top)) 20px 16px;
     position: static;
   }
 
   header h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   header p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .container {
-    padding: 20px 16px;
+    padding: 16px 20px;
   }
 
   .stats-bar {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 
   .stat-card {
-    padding: 12px 8px;
+    padding: 14px 10px;
   }
 
   .stat-label {
@@ -697,37 +706,29 @@ footer a:hover {
   }
 
   .question-prompt h2 {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .question-prompt .instruction {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
   }
 
   .options-container {
-    gap: 14px;
+    gap: 12px;
   }
 
   .option-btn {
-    padding: 20px 16px;
-    font-size: 1.2rem;
-    min-height: 80px;
-  }
-
-  .option-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-  }
-
-  .option-btn:active:not(:disabled) {
-    transform: translateY(0);
+    padding: 18px 14px;
+    font-size: 1.1rem;
+    min-height: 72px;
   }
 
   .progress-track {
-    height: 8px;
+    height: 5px;
   }
 
   .progress-label {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
 
   .word-table {
@@ -736,7 +737,7 @@ footer a:hover {
 
   .word-table th {
     padding: 10px 14px;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
   }
 
   .word-table td {
@@ -744,7 +745,7 @@ footer a:hover {
   }
 
   .kategori-tag {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     padding: 3px 8px;
   }
 }
@@ -754,7 +755,7 @@ footer a:hover {
    ===================== */
 @media (min-width: 768px) {
   .container {
-    padding: 24px 20px;
+    padding: 20px 24px;
   }
 
   .game-card {
@@ -762,423 +763,4 @@ footer a:hover {
   }
 }
 
-/* =====================
-   Leaderboard Section
-   ===================== */
-.leaderboard-section {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.leaderboard-header {
-  padding: 12px 14px;
-  background: #f8fafc;
-  border-bottom: 1px solid var(--border);
-}
-
-.lb-content {
-  padding: 16px 14px;
-}
-
-.lb-content.hidden {
-  display: none;
-}
-
-.lb-save-group {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.lb-save-group input {
-  flex: 1;
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  color: var(--text);
-  outline: none;
-  transition: border-color var(--transition-fast);
-}
-
-.lb-save-group input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.btn-lb-save {
-  padding: 10px 16px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background var(--transition-fast);
-  white-space: nowrap;
-  touch-action: manipulation;
-}
-
-.btn-lb-save:hover {
-  background: var(--primary-dark);
-}
-
-.btn-lb-save:active {
-  transform: scale(0.97);
-}
-
-.lb-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.82rem;
-  margin-bottom: 12px;
-}
-
-.lb-table thead {
-  background: #f1f5f9;
-}
-
-.lb-table th {
-  padding: 8px 10px;
-  text-align: left;
-  font-weight: 700;
-  color: var(--text-secondary);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 2px solid var(--border);
-  white-space: nowrap;
-}
-
-.lb-table td {
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-.lb-table tbody tr:hover {
-  background: #f8fafc;
-}
-
-.lb-score {
-  font-weight: 800;
-  color: var(--primary);
-}
-
-.lb-empty {
-  text-align: center;
-  color: var(--text-secondary);
-  padding: 20px 10px !important;
-  font-style: italic;
-}
-
-.btn-lb-clear {
-  padding: 8px 14px;
-  background: white;
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  touch-action: manipulation;
-}
-
-.btn-lb-clear:hover {
-  color: var(--danger);
-  border-color: var(--danger);
-}
-
-/* =====================
-   Multiplayer Section
-   ===================== */
-.multiplayer-section {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  margin-bottom: 16px;
-}
-
-.multiplayer-header {
-  padding: 12px 14px;
-  background: #f8fafc;
-  border-bottom: 1px solid var(--border);
-}
-
-.mp-content {
-  padding: 16px 14px;
-}
-
-.mp-content.hidden {
-  display: none;
-}
-
-.mp-lobby {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.mp-input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.mp-input-group label {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-.mp-input-group input,
-.mp-join-group input {
-  padding: 10px 12px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  color: var(--text);
-  outline: none;
-  transition: border-color var(--transition-fast);
-}
-
-.mp-input-group input:focus,
-.mp-join-group input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-.mp-buttons {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.btn-mp-create,
-.btn-mp-join {
-  padding: 10px 16px;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background var(--transition-fast);
-  touch-action: manipulation;
-}
-
-.btn-mp-create {
-  background: var(--success);
-  color: white;
-}
-
-.btn-mp-create:hover {
-  background: #15803d;
-}
-
-.btn-mp-create:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.btn-mp-join {
-  background: var(--primary);
-  color: white;
-}
-
-.btn-mp-join:hover {
-  background: var(--primary-dark);
-}
-
-.btn-mp-join:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.mp-or {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  font-weight: 600;
-}
-
-.mp-join-group {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.mp-join-group input {
-  width: 100px;
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
-.mp-status {
-  padding: 12px 14px;
-  background: #eff6ff;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  color: var(--text);
-  border: 1px solid #bfdbfe;
-  line-height: 1.6;
-}
-
-.mp-status.hidden {
-  display: none;
-}
-
-.mp-room-id {
-  font-size: 1.2rem;
-  color: var(--primary);
-  letter-spacing: 3px;
-  background: white;
-  padding: 2px 10px;
-  border-radius: 6px;
-  border: 2px dashed var(--primary);
-}
-
-.mp-game.hidden,
-.mp-result.hidden {
-  display: none;
-}
-
-/* Multiplayer Scoreboard */
-.mp-scoreboard {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding: 12px;
-  background: #f8fafc;
-  border-radius: var(--radius-sm);
-}
-
-.mp-player {
-  text-align: center;
-  flex: 1;
-}
-
-.mp-player-label {
-  display: block;
-  font-size: 0.65rem;
-  color: var(--text-secondary);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.mp-player-name {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text);
-  margin: 2px 0;
-}
-
-.mp-player-score {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: 800;
-}
-
-.mp-player-me .mp-player-score {
-  color: var(--primary);
-}
-
-.mp-player-opponent .mp-player-score {
-  color: var(--danger);
-}
-
-.mp-vs {
-  font-weight: 800;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.mp-round-info {
-  text-align: center;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 12px;
-}
-
-.mp-question-area {
-  margin-bottom: 16px;
-}
-
-.mp-question-prompt {
-  text-align: center;
-  font-size: 0.95rem;
-  color: var(--text);
-  margin-bottom: 12px;
-}
-
-.mp-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-/* Multiplayer Result */
-.mp-result {
-  text-align: center;
-  padding: 10px 0;
-}
-
-.mp-result h3 {
-  font-size: 1.3rem;
-  margin-bottom: 16px;
-  color: var(--text);
-}
-
-.mp-result-scores {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.mp-result-player {
-  text-align: center;
-  flex: 1;
-}
-
-.mp-result-name {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.mp-result-score {
-  display: block;
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--primary);
-}
-
-.mp-result-detail {
-  display: block;
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  margin-top: 2px;
-}
-
-.mp-result-vs {
-  font-weight: 800;
-  color: var(--text-secondary);
-  font-size: 1rem;
-}
+/* Leaderboard and Multiplayer sections hidden */
