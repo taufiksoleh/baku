@@ -24,6 +24,37 @@ document.addEventListener("DOMContentLoaded", function () {
   const wordListKategori = document.getElementById("word-list-kategori");
   const progressBar = document.getElementById("progress-bar");
 
+  // Leaderboard elements
+  const lbToggle = document.getElementById("lb-toggle");
+  const lbContent = document.getElementById("lb-content");
+  const lbBody = document.getElementById("lb-body");
+  const lbNameInput = document.getElementById("lb-name");
+  const lbSaveBtn = document.getElementById("lb-save-btn");
+  const lbClearBtn = document.getElementById("lb-clear-btn");
+
+  // Multiplayer elements
+  const mpToggle = document.getElementById("mp-toggle");
+  const mpContent = document.getElementById("mp-content");
+  const mpLobby = document.getElementById("mp-lobby");
+  const mpGame = document.getElementById("mp-game");
+  const mpResult = document.getElementById("mp-result");
+  const mpNameInput = document.getElementById("mp-name");
+  const mpCreateBtn = document.getElementById("mp-create-btn");
+  const mpJoinBtn = document.getElementById("mp-join-btn");
+  const mpRoomCodeInput = document.getElementById("mp-room-code");
+  const mpStatus = document.getElementById("mp-status");
+  const mpMyName = document.getElementById("mp-my-name");
+  const mpOppName = document.getElementById("mp-opp-name");
+  const mpMyScore = document.getElementById("mp-my-score");
+  const mpOppScore = document.getElementById("mp-opp-score");
+  const mpRoundInfo = document.getElementById("mp-round-info");
+  const mpOptionLeft = document.getElementById("mp-option-left");
+  const mpOptionRight = document.getElementById("mp-option-right");
+  const mpFeedback = document.getElementById("mp-feedback");
+  const mpFeedbackText = document.getElementById("mp-feedback-text");
+  const mpLeaveBtn = document.getElementById("mp-leave-btn");
+  const mpPlayAgainBtn = document.getElementById("mp-play-again-btn");
+
   let awaitingNext = false;
 
   // =====================
@@ -42,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
   Game.init();
   renderQuestion();
   renderWordList("Semua");
+  renderLeaderboard();
 
   // =====================
   // Render Question
@@ -106,6 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
     optionRightBtn.disabled = true;
 
     if (result.isCorrect) {
+      // Play correct sound
+      Sound.playCorrect();
+
       // Correct answer
       chosenBtn.classList.add("correct");
       feedbackEl.className = "feedback correct";
@@ -129,6 +164,9 @@ document.addEventListener("DOMContentLoaded", function () {
         streakBadge.textContent = `🔥 ${newState.streak}x Streak!`;
       }
     } else {
+      // Play wrong sound
+      Sound.playWrong();
+
       // Wrong answer
       chosenBtn.classList.add("wrong");
 
@@ -244,4 +282,247 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("word-list-count").textContent = `${kata.length} kata`;
   }
+
+  // =====================
+  // Leaderboard
+  // =====================
+  lbToggle.addEventListener("click", () => {
+    const isHidden = lbContent.classList.contains("hidden");
+    if (isHidden) {
+      lbContent.classList.remove("hidden");
+      lbToggle.textContent = "🏆 Leaderboard ▲";
+    } else {
+      lbContent.classList.add("hidden");
+      lbToggle.textContent = "🏆 Leaderboard ▼";
+    }
+  });
+
+  lbSaveBtn.addEventListener("click", () => {
+    const name = lbNameInput.value.trim();
+    if (!name) {
+      lbNameInput.focus();
+      return;
+    }
+    const state = Game.getState();
+    Leaderboard.addScore(name, state.score, Game.getAccuracy());
+    renderLeaderboard();
+    lbNameInput.value = "";
+  });
+
+  lbClearBtn.addEventListener("click", () => {
+    Leaderboard.clear();
+    renderLeaderboard();
+  });
+
+  function renderLeaderboard() {
+    const entries = Leaderboard.getEntries();
+    lbBody.innerHTML = "";
+
+    if (entries.length === 0) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = '<td colspan="5" class="lb-empty">Belum ada skor tersimpan</td>';
+      lbBody.appendChild(tr);
+      return;
+    }
+
+    entries.forEach((entry, index) => {
+      const tr = document.createElement("tr");
+      const medal = index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : index + 1;
+      tr.innerHTML =
+        "<td>" + medal + "</td>" +
+        "<td><strong>" + entry.name + "</strong></td>" +
+        "<td class=\"lb-score\">" + entry.score + "</td>" +
+        "<td>" + entry.accuracy + "%</td>" +
+        "<td>" + entry.date + "</td>";
+      lbBody.appendChild(tr);
+    });
+  }
+
+  // =====================
+  // Multiplayer
+  // =====================
+  let mpCurrentOptions = null;
+  let mpAwaitingNext = false;
+
+  mpToggle.addEventListener("click", () => {
+    const isHidden = mpContent.classList.contains("hidden");
+    if (isHidden) {
+      mpContent.classList.remove("hidden");
+      mpToggle.textContent = "🌐 Mode Multiplayer ▲";
+    } else {
+      mpContent.classList.add("hidden");
+      mpToggle.textContent = "🌐 Mode Multiplayer ▼";
+    }
+  });
+
+  mpCreateBtn.addEventListener("click", () => {
+    const name = mpNameInput.value.trim();
+    if (!name) {
+      mpNameInput.focus();
+      return;
+    }
+    mpStatus.classList.remove("hidden");
+    mpStatus.textContent = "⏳ Membuat room...";
+    mpCreateBtn.disabled = true;
+
+    Multiplayer.createRoom(name, function (roomId) {
+      mpStatus.innerHTML = "✅ Room dibuat! Kode: <strong class=\"mp-room-id\">" + roomId + "</strong><br>Bagikan kode ini ke lawan dan tunggu mereka bergabung...";
+    });
+  });
+
+  mpJoinBtn.addEventListener("click", () => {
+    const name = mpNameInput.value.trim();
+    const code = mpRoomCodeInput.value.trim();
+    if (!name) {
+      mpNameInput.focus();
+      return;
+    }
+    if (!code) {
+      mpRoomCodeInput.focus();
+      return;
+    }
+    mpStatus.classList.remove("hidden");
+    mpStatus.textContent = "⏳ Menghubungkan...";
+    mpJoinBtn.disabled = true;
+
+    Multiplayer.joinRoom(code, name, function () {
+      mpStatus.textContent = "✅ Terhubung! Menunggu permainan dimulai...";
+    });
+  });
+
+  mpLeaveBtn.addEventListener("click", () => {
+    Multiplayer.disconnect();
+    resetMpUI();
+  });
+
+  mpPlayAgainBtn.addEventListener("click", () => {
+    Multiplayer.disconnect();
+    resetMpUI();
+  });
+
+  function resetMpUI() {
+    mpLobby.classList.remove("hidden");
+    mpGame.classList.add("hidden");
+    mpResult.classList.add("hidden");
+    mpStatus.classList.add("hidden");
+    mpCreateBtn.disabled = false;
+    mpJoinBtn.disabled = false;
+    mpMyScore.textContent = "0";
+    mpOppScore.textContent = "0";
+  }
+
+  mpOptionLeft.addEventListener("click", () => {
+    handleMpAnswer(mpOptionLeft, true);
+  });
+
+  mpOptionRight.addEventListener("click", () => {
+    handleMpAnswer(mpOptionRight, false);
+  });
+
+  function handleMpAnswer(chosenBtn, isLeft) {
+    if (mpAwaitingNext) return;
+    mpAwaitingNext = true;
+
+    const isBaku = isLeft ? mpCurrentOptions.optionLeft.isBaku : mpCurrentOptions.optionRight.isBaku;
+    const result = Multiplayer.submitAnswer(isBaku);
+
+    mpOptionLeft.disabled = true;
+    mpOptionRight.disabled = true;
+
+    if (result.isCorrect) {
+      Sound.playCorrect();
+      chosenBtn.classList.add("correct");
+      mpFeedback.className = "feedback correct";
+      mpFeedbackText.textContent = "✅ Benar! +10 poin";
+    } else {
+      Sound.playWrong();
+      chosenBtn.classList.add("wrong");
+      // Highlight correct one
+      if (isLeft) {
+        mpOptionRight.classList.add("correct");
+      } else {
+        mpOptionLeft.classList.add("correct");
+      }
+      mpFeedback.className = "feedback wrong";
+      mpFeedbackText.textContent = "❌ Salah!";
+    }
+    mpFeedback.classList.remove("hidden");
+    mpMyScore.textContent = result.myScore;
+  }
+
+  // Multiplayer state handler
+  Multiplayer.setOnStateChange(function (event) {
+    switch (event.type) {
+      case "game_start":
+        mpLobby.classList.add("hidden");
+        mpGame.classList.remove("hidden");
+        mpResult.classList.add("hidden");
+        mpMyName.textContent = Multiplayer.getPlayerName();
+        mpOppName.textContent = event.opponent;
+        mpRoundInfo.textContent = "Permainan dimulai!";
+        break;
+
+      case "question":
+        mpAwaitingNext = false;
+        mpCurrentOptions = {
+          optionLeft: event.optionLeft,
+          optionRight: event.optionRight,
+        };
+        mpOptionLeft.textContent = event.optionLeft.text;
+        mpOptionRight.textContent = event.optionRight.text;
+        mpOptionLeft.className = "option-btn";
+        mpOptionRight.className = "option-btn";
+        mpOptionLeft.disabled = false;
+        mpOptionRight.disabled = false;
+        mpFeedback.classList.add("hidden");
+        mpFeedback.className = "feedback hidden";
+        mpRoundInfo.textContent = "Soal " + (event.index + 1) + " dari " + event.total;
+        break;
+
+      case "opponent_answered":
+        mpOppScore.textContent = event.opponentScore;
+        break;
+
+      case "game_over":
+        mpGame.classList.add("hidden");
+        mpResult.classList.remove("hidden");
+
+        const myName = Multiplayer.getPlayerName();
+        document.getElementById("mp-result-my-name").textContent = myName;
+        document.getElementById("mp-result-my-score").textContent = event.myScore;
+        document.getElementById("mp-result-my-detail").textContent = event.myCorrect + " benar";
+        document.getElementById("mp-result-opp-name").textContent = event.opponentName;
+        document.getElementById("mp-result-opp-score").textContent = event.opponentScore;
+        document.getElementById("mp-result-opp-detail").textContent = event.opponentCorrect + " benar";
+
+        const resultTitle = document.getElementById("mp-result-title");
+        if (event.myScore > event.opponentScore) {
+          resultTitle.textContent = "🎉 Kamu Menang!";
+          Sound.playCorrect();
+        } else if (event.myScore < event.opponentScore) {
+          resultTitle.textContent = "😔 Kamu Kalah!";
+          Sound.playWrong();
+        } else {
+          resultTitle.textContent = "🤝 Seri!";
+        }
+        break;
+
+      case "disconnected":
+        mpGame.classList.add("hidden");
+        mpResult.classList.add("hidden");
+        mpLobby.classList.remove("hidden");
+        mpStatus.classList.remove("hidden");
+        mpStatus.textContent = "⚠️ " + event.message;
+        mpCreateBtn.disabled = false;
+        mpJoinBtn.disabled = false;
+        break;
+
+      case "error":
+        mpStatus.classList.remove("hidden");
+        mpStatus.textContent = "❌ " + event.message;
+        mpCreateBtn.disabled = false;
+        mpJoinBtn.disabled = false;
+        break;
+    }
+  });
 });
