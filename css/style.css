@@ -44,7 +44,7 @@ body {
   background-color: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  padding: 0 0 calc(40px + var(--safe-bottom)) 0;
+  padding: 0 0 calc(64px + var(--safe-bottom)) 0;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -764,3 +764,89 @@ footer a:hover {
 }
 
 /* Leaderboard and Multiplayer sections hidden */
+
+/* =====================
+   Tab Views
+   ===================== */
+.tab-view {
+  display: none;
+}
+
+.tab-view.tab-active {
+  display: block;
+}
+
+/* =====================
+   Bottom Navigation — iOS Tab Bar Style
+   ===================== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  background: rgba(249, 249, 249, 0.94);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-top: 0.5px solid rgba(0, 0, 0, 0.12);
+  padding-bottom: var(--safe-bottom);
+  z-index: 100;
+  height: calc(56px + var(--safe-bottom));
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bottom-nav-item.active {
+  color: var(--primary);
+}
+
+.bottom-nav-item:active {
+  opacity: 0.6;
+}
+
+.bottom-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+
+.bottom-nav-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.bottom-nav-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+/* =====================
+   Inline SVG Button Icons
+   ===================== */
+.btn-icon {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}

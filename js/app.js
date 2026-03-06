@@ -18,13 +18,36 @@ document.addEventListener("DOMContentLoaded", function () {
   const resetBtn = document.getElementById("reset-btn");
   const kategoriSelect = document.getElementById("kategori-select");
   const streakBadge = document.getElementById("streak-badge");
-  const wordListContainer = document.getElementById("word-list-container");
-  const wordListToggle = document.getElementById("word-list-toggle");
-  const wordListContent = document.getElementById("word-list-content");
   const wordListKategori = document.getElementById("word-list-kategori");
   const progressBar = document.getElementById("progress-bar");
+  const bottomNav = document.getElementById("bottom-nav");
 
   let awaitingNext = false;
+
+  // =====================
+  // Bottom Navigation — Tab Switching
+  // =====================
+  const navItems = bottomNav.querySelectorAll(".bottom-nav-item");
+  const tabViews = document.querySelectorAll(".tab-view");
+
+  navItems.forEach(function (item) {
+    item.addEventListener("click", function () {
+      const targetTab = item.getAttribute("data-tab");
+
+      // Update active nav item
+      navItems.forEach(function (nav) { nav.classList.remove("active"); });
+      item.classList.add("active");
+
+      // Show target tab, hide others
+      tabViews.forEach(function (view) {
+        if (view.id === targetTab) {
+          view.classList.add("tab-active");
+        } else {
+          view.classList.remove("tab-active");
+        }
+      });
+    });
+  });
 
   // =====================
   // Populate Kategori Select
@@ -64,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Update streak badge
     if (state.streak >= 3) {
       streakBadge.classList.remove("hidden");
-      streakBadge.textContent = `🔥 ${state.streak}x Streak!`;
+      streakBadge.textContent = `${state.streak}x Streak!`;
     } else {
       streakBadge.classList.add("hidden");
     }
@@ -112,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Correct answer
       chosenBtn.classList.add("correct");
       feedbackEl.className = "feedback correct";
-      feedbackText.textContent = "✅ Benar!";
+      feedbackText.textContent = "Benar!";
 
       const newState = Game.getState();
       if (newState.streak >= 3) {
@@ -129,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Show streak badge for 3+
       if (newState.streak >= 3) {
         streakBadge.classList.remove("hidden");
-        streakBadge.textContent = `🔥 ${newState.streak}x Streak!`;
+        streakBadge.textContent = `${newState.streak}x Streak!`;
       }
     } else {
       // Play wrong sound
@@ -143,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
       correctBtn.classList.add("correct");
 
       feedbackEl.className = "feedback wrong";
-      feedbackText.textContent = "❌ Salah!";
+      feedbackText.textContent = "Salah!";
       feedbackDetail.textContent = `Kata baku yang benar adalah "${result.correctWord}" (bukan "${result.incorrectWord}"). -5 poin`;
 
       streakBadge.classList.add("hidden");
@@ -202,19 +225,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // =====================
-  // Word List Toggle
+  // Word List Kategori Filter
   // =====================
-  wordListToggle.addEventListener("click", () => {
-    const isHidden = wordListContent.classList.contains("hidden");
-    if (isHidden) {
-      wordListContent.classList.remove("hidden");
-      wordListToggle.textContent = "📚 Sembunyikan Daftar Kata ▲";
-    } else {
-      wordListContent.classList.add("hidden");
-      wordListToggle.textContent = "📚 Lihat Daftar Kata ▼";
-    }
-  });
-
   wordListKategori.addEventListener("change", (e) => {
     renderWordList(e.target.value);
   });
